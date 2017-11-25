@@ -8,10 +8,14 @@ import smartMath.Circle;
 import smartMath.Landmark;
 import smartMath.Vector;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -19,6 +23,7 @@ public class LandmarkPanel extends JPanel {
 
     /** Landmark */
     private Landmark landmark;
+    private Image background;
 
     /** Graphe */
     private Graph graph;
@@ -41,7 +46,6 @@ public class LandmarkPanel extends JPanel {
     public LandmarkPanel(Landmark landmark, Graph graph){
         this.landmark = landmark;
         this.graph = graph;
-        this.setLayout(null);
 
         path = new ArrayList<>();
         clics = new ArrayList<>();
@@ -52,6 +56,7 @@ public class LandmarkPanel extends JPanel {
     /** Méthode appelée automatiquement par Window qui permet de dessiner des trucs ! */
     @Override
     public void paintComponent(Graphics graphics){
+
         graphics.setColor(Color.DARK_GRAY);
         // Le Landmark
         graphics.drawRect(changeRef(landmark.getUpLeft()).getX(), changeRef(landmark.getUpLeft()).getY(), landmark.getSizeX(), landmark.getSizeY());

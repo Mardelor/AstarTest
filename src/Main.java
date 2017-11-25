@@ -23,23 +23,23 @@ public class Main {
         graph = new Graph(landmark);
         astar = new Astar(landmark, graph);
         display = new Window(landmark, graph);
-        display.printDebug("Temps en initialisation : " + (System.currentTimeMillis()-timeStep) + " ms");
+        display.printDebug("Time to initialize : " + (System.currentTimeMillis()-timeStep) + " ms");
         ArrayList<Vector> clics;
         ArrayList<Vector> path;
 
         while (true){
             try {
-                display.printDebug("Nouveau chemin");
+                display.printDebug("New Path");
                 clics = display.waitLRClic();
                 timeStep = System.currentTimeMillis();
                 path = astar.findPath(clics.get(0), clics.get(1));
-                display.printDebug("Temps de calcul : " + (System.currentTimeMillis() - timeStep) + " ms, en passant par " + path.size() + " noeuds");
+                display.printDebug("Time to compute path : " + (System.currentTimeMillis() - timeStep) + " ms, going through " + path.size() + " nodes");
                 display.drawPath(path);
                 display.removeErrorMess();
             }catch (PointOutOfLandmarkException e){
-                display.printError("Point Hors du landmark : cliquez autre part !");
+                display.printError("Out of the Landmark : please clic somewhere else !");
             }catch (NoPathFoundException e){
-                display.printError("Aucun chemin trouver entre " + e.getBegin().toStringOnlyInt() + " et " + e.getEnd().toStringOnlyInt() + " : le graphe n'est pas recouvrant");
+                display.printError("No Path between " + e.getBegin().toStringOnlyInt() + " and " + e.getEnd().toStringOnlyInt() + " : graph doesn't cover all nodes");
             }
         }
     }
