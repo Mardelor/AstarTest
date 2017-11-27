@@ -36,21 +36,20 @@ public class Astar {
         this.landmark = landmark;
         this.graph = graph;
 
-        openList = new PriorityQueue<>(this.graph.getNodeList().size(), new ComparatorNode());
+        openList = new PriorityQueue<>(new ComparatorNode());
         closedList = new ArrayList<>();
     }
 
     /** A* */
     public ArrayList<Vector> findPath(Vector begin, Vector aim) throws PointOutOfLandmarkException, NoPathFoundException {
 
+        // On commence par mettre à jour le graphe vis-à-vis du dernier appel
         if(beginNode != null) {
             graph.deleteNode(beginNode);
             graph.deleteNode(aimNode);
             closedList.clear();
             openList.clear();
         }
-
-        int costFromBegin;
 
         // On tente toujours la ligne droite
         if(!landmark.intersectAnyObstacles(begin, aim)){
@@ -61,8 +60,10 @@ public class Astar {
         }
 
         // Puis on intialise la pathfinding (la partie qui prend du temps)
+        int currentCost;
         initPathfinder(begin, aim);
 
+        // Astar en lui-même
         while (!openList.isEmpty())
         {
             Node visited = openList.poll();
@@ -72,10 +73,10 @@ public class Astar {
 
             for(Ridge neighborRidge : visited.getRidgeList()){
                 Node neighbor = neighborRidge.getSecondNode();
-                costFromBegin = visited.getCostFromBegin() + neighborRidge.getSingleCost();
+                currentCost = visited.getCostFromBegin() + neighborRidge.getSingleCost();
                 // Si l'on a déjà évalué ce noeud et que visited est un meilleur prédecesseur, on l'update !
-                if ((openList.contains(neighbor) || closedList.contains(neighbor)) && costFromBegin < neighbor.getCostFromBegin()){
-                    neighbor.setCostFromBegin(costFromBegin);
+                if ((openList.contains(neighbor) || closedList.contains(neighbor)) && currentCost < neighbor.getCostFromBegin()){
+                    neighbor.setCostFromBegin(currentCost);
                     neighbor.setPredecessor(visited);
                     if(closedList.contains(neighbor)){
                         closedList.remove(neighbor);
@@ -84,7 +85,7 @@ public class Astar {
                 }
                 // Si c'est un noeud que l'on a jamais visité, on le visite !
                 else if(!(openList.contains(neighbor) || closedList.contains(neighbor))){
-                    neighbor.setCostFromBegin(costFromBegin);
+                    neighbor.setCostFromBegin(currentCost);
                     neighbor.setPredecessor(visited);
                     openList.add(neighbor);
                 }
@@ -107,6 +108,7 @@ public class Astar {
         }
         beginNode = new Node(begin);
         aimNode = new Node(aim);
+        graph.reinitHeuristic();
         graph.addNode(beginNode);
         graph.addNode(aimNode);
         ComparatorNode.aim = aim;

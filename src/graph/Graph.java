@@ -76,6 +76,14 @@ public class Graph {
         }
     }
 
+    /** Ré-initialise l'heuristique et le cout de chaque noeud */
+    public void reinitHeuristic(){
+        for(Node node : nodeList){
+            node.setHeuristic(-1);
+            node.setCostFromBegin(100000);
+        }
+    }
+
     /*********
      * UTILS *
      *********/
@@ -85,7 +93,7 @@ public class Graph {
     private ArrayList<Node> placeNodes(Circle circle){
         Vector posCenter = circle.getCenter();
         ArrayList<Node> addNodes = new ArrayList<>();
-        int nbNodes = circle.getRay()/4;
+        int nbNodes = circle.getRay()/5;
         for(int i=-nbNodes/2; i<=nbNodes/2; i++){
             Vector posNode = new Vector(1.2*circle.getRay(), i*2*Math.PI/nbNodes);
             posNode.addVector(posCenter);
