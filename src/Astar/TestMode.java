@@ -3,7 +3,7 @@ package Astar;
 public enum TestMode {
 
     DEFAULT_OBSTACLES,
-    RANDOM_OBSTACLES(60),
+    RANDOM_OBSTACLES(50),
     ;
 
     /** Nombre qui peut servir en fonction du mode */

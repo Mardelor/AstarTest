@@ -23,7 +23,8 @@ public class Main {
         graph = new Graph(landmark);
         astar = new Astar(landmark, graph);
         display = new Window(landmark, graph);
-        display.printDebug("Time to initialize : " + (System.currentTimeMillis()-timeStep) + " ms");
+        display.printDebug("Time to initialize : " + (System.currentTimeMillis()-timeStep) + " ms,");
+        display.printDebug("Creating " + graph.getNodeList().size() + " Nodes, and " + graph.getRidgeList().size() + " Ridges");
         ArrayList<Vector> clics;
         ArrayList<Vector> path;
 

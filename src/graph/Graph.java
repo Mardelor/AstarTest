@@ -64,12 +64,10 @@ public class Graph {
 
     /** Placement des arrêtes */
     private void initRidges(){
-        Node node1;
-        Node node2;
         for(int i=0; i<nodeList.size()-1; i++){
-            node1 = nodeList.get(i);
+            Node node1 = nodeList.get(i);
             for(int j=i+1; j<nodeList.size(); j++){
-                node2 = nodeList.get(j);
+                Node node2 = nodeList.get(j);
                 if(!landmark.intersectAnyObstacles(node1.getPosition(), node2.getPosition())){
                     node1.createLink(node2);
                 }
@@ -87,9 +85,9 @@ public class Graph {
     private ArrayList<Node> placeNodes(Circle circle){
         Vector posCenter = circle.getCenter();
         ArrayList<Node> addNodes = new ArrayList<>();
-        int nbNodes = circle.getRay()/5;
+        int nbNodes = circle.getRay()/4;
         for(int i=-nbNodes/2; i<=nbNodes/2; i++){
-            Vector posNode = new Vector(1.3*circle.getRay(), i*2*Math.PI/nbNodes);
+            Vector posNode = new Vector(1.2*circle.getRay(), i*2*Math.PI/nbNodes);
             posNode.addVector(posCenter);
 
             if(landmark.isInLandmark(posNode) && !landmark.isInObstacle(posNode)){

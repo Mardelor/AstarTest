@@ -25,7 +25,7 @@ public class ComparatorNode implements Comparator<Node> {
 
     /** Calcul l'heuristique */
     private int computeHeuristic(Node node){
-        if(node.getHeuristic() == -1){
+        if(node.getHeuristic() == -1 && !node.getPosition().equals(aim)){
             node.setHeuristic(node.getPosition().withdrawNewVector(aim).squaredLength());
         }
         return node.getHeuristic();

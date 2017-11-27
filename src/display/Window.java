@@ -4,6 +4,7 @@ import graph.Graph;
 import smartMath.Landmark;
 import smartMath.Vector;
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Window extends JFrame {
@@ -21,6 +22,7 @@ public class Window extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBackground(Color.LIGHT_GRAY);
 
         panel = new LandmarkPanel(landmark, graph);
         this.setContentPane(panel);

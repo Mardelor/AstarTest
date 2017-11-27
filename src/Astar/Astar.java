@@ -77,6 +77,10 @@ public class Astar {
                 if ((openList.contains(neighbor) || closedList.contains(neighbor)) && costFromBegin < neighbor.getCostFromBegin()){
                     neighbor.setCostFromBegin(costFromBegin);
                     neighbor.setPredecessor(visited);
+                    if(closedList.contains(neighbor)){
+                        closedList.remove(neighbor);
+                        openList.add(neighbor);
+                    }
                 }
                 // Si c'est un noeud que l'on a jamais visité, on le visite !
                 else if(!(openList.contains(neighbor) || closedList.contains(neighbor))){

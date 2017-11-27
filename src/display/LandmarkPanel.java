@@ -29,9 +29,9 @@ public class LandmarkPanel extends JPanel {
     private Font messageStyle = new Font("Default", Font.BOLD, 12);
 
     /** Couleurs */
-    private Color obstacleColor = new Color(160, 40, 20, 200);
+    private Color obstacleColor = new Color(160, 40, 20, 160);
     private Color nodeColor = new Color(40, 60, 160, 180);
-    private Color ridgeColor = new Color(220, 100, 20, 50);
+    private Color ridgeColor = new Color(220, 100, 50, 30);
     private Color pathColor = new Color(120, 60, 120);
     private Color errorColor = new Color(250, 80, 80);
     private Color printColor = new Color(180, 200, 220);
@@ -51,8 +51,10 @@ public class LandmarkPanel extends JPanel {
     @Override
     public void paintComponent(Graphics graphics){
 
-        graphics.setColor(Color.DARK_GRAY);
+        graphics.setColor(Color.WHITE);
         // Le Landmark
+        graphics.fillRect(changeRef(landmark.getUpLeft()).getX(), changeRef(landmark.getUpLeft()).getY(), landmark.getSizeX(), landmark.getSizeY());
+        graphics.setColor(Color.DARK_GRAY);
         graphics.drawRect(changeRef(landmark.getUpLeft()).getX(), changeRef(landmark.getUpLeft()).getY(), landmark.getSizeX(), landmark.getSizeY());
 
         graphics.setColor(obstacleColor);
