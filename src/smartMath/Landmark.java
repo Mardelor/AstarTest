@@ -38,7 +38,7 @@ public class Landmark {
 
     /** True si le vecteur est dans le landmark */
     public boolean isInLandmark(Vector toVerify){
-        return (Math.abs(toVerify.getX())<=sizeX/2 && Math.abs(toVerify.getY())<=sizeY/2);
+        return (Math.abs(toVerify.getX())<=sizeX/2 && Math.abs(toVerify.getY()) <= sizeY/2);
     }
 
     /** Initialise les obstacles */
@@ -62,8 +62,7 @@ public class Landmark {
             listObst.add(new Circle(downRight.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
             listObst.add(new Circle(downRight.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
         }
-        Ridge.staticCost = (sizeX+sizeY)/100;
-        Node.initialHeuristc = sizeX+sizeY;
+        Ridge.staticCost = 0;
     }
 
     /** Vérifie si la position donnée est dans un obstacle
@@ -89,12 +88,6 @@ public class Landmark {
             }
         }
         return false;
-    }
-
-    /** Ajoute un obstacle
-     * @param circle */
-    public void addObstacle(Circle circle){
-        this.listObst.add(circle);
     }
 
     /** Getters & Setters */

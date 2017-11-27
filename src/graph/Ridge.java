@@ -11,7 +11,8 @@ public class Ridge {
     /** Coût d'une arrête */
     private int singleCost;
 
-    /** Coût statique d'une arrête */
+    /** Coût statique d'une arrête : le but est de faire en sorte que l'algorithme choisissent des chemins plus directe,
+     * c'est-à-dire qui passent par le moins d'arretes possibles */
     public static int staticCost = 0;
 
     /** Constructeur d'arete : par défaut, le coût est égale à la distance euclidienne au carré

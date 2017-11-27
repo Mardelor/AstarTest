@@ -4,6 +4,7 @@ import smartMath.Circle;
 import smartMath.Landmark;
 import smartMath.Vector;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Graph {
@@ -11,6 +12,9 @@ public class Graph {
     /** Liste des noeuds */
     private CopyOnWriteArrayList<Node> nodeList;
     private ArrayList<Node> staticNodes;
+
+    /** Liste des arrêtes */
+    private HashSet<Ridge> ridgeList;
 
     /** Liste des obstacles */
     private ArrayList<Circle> obstacleList;
@@ -26,6 +30,7 @@ public class Graph {
         this.obstacleList = landmark.getListObst();
         this.nodeList = new CopyOnWriteArrayList<>();
         this.staticNodes = new ArrayList<>();
+        this.ridgeList = new HashSet<>();
         this.initGraph();
     }
 
@@ -35,18 +40,8 @@ public class Graph {
 
     /** Initialise le graphe : place les noeuds en fonction des obstacles & les relies avec des arrêtes */
     private void initGraph(){
-        Ridge.staticCost = 50;
         initNodes();
         initRidges();
-    }
-
-    /** Initialise l'heuristique pour un but donné
-     * @param aim
-     */
-    public void initHeuristic(Vector aim){
-        for(Node node : nodeList){
-            node.setHeuristic(aim.withdrawNewVector(node.getPosition()).squaredLength());
-        }
     }
 
     /** Placement des noeuds */
@@ -79,19 +74,8 @@ public class Graph {
                     node1.createLink(node2);
                 }
             }
+            ridgeList.addAll(node1.getRidgeList());
         }
-    }
-
-    /************************
-     * MISE A JOUR DU GRAPH *
-     ************************/
-
-    /** Mise à jour du graph (un peu bourin) */
-    public void update(){
-        this.obstacleList = landmark.getListObst();
-        this.nodeList.clear();
-        initNodes();
-        initRidges();
     }
 
     /*********
@@ -103,7 +87,7 @@ public class Graph {
     private ArrayList<Node> placeNodes(Circle circle){
         Vector posCenter = circle.getCenter();
         ArrayList<Node> addNodes = new ArrayList<>();
-        int nbNodes = circle.getRay()/7;
+        int nbNodes = circle.getRay()/5;
         for(int i=-nbNodes/2; i<=nbNodes/2; i++){
             Vector posNode = new Vector(1.3*circle.getRay(), i*2*Math.PI/nbNodes);
             posNode.addVector(posCenter);
@@ -147,5 +131,8 @@ public class Graph {
     /** Getters */
     public CopyOnWriteArrayList<Node> getNodeList() {
         return nodeList;
+    }
+    public HashSet<Ridge> getRidgeList() {
+        return ridgeList;
     }
 }

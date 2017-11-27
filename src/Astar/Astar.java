@@ -105,7 +105,7 @@ public class Astar {
         aimNode = new Node(aim);
         graph.addNode(beginNode);
         graph.addNode(aimNode);
-        graph.initHeuristic(aim);
+        ComparatorNode.aim = aim;
         openList.add(beginNode);
     }
 

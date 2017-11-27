@@ -1,6 +1,5 @@
 package display;
 
-import Astar.TestMode;
 import graph.Graph;
 import graph.Node;
 import graph.Ridge;
@@ -8,14 +7,8 @@ import smartMath.Circle;
 import smartMath.Landmark;
 import smartMath.Vector;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -33,11 +26,12 @@ public class LandmarkPanel extends JPanel {
     /** Informations */
     private ArrayList<String> infoQueue;
     private String errorMessage;
+    private Font messageStyle = new Font("Default", Font.BOLD, 12);
 
     /** Couleurs */
     private Color obstacleColor = new Color(160, 40, 20, 200);
     private Color nodeColor = new Color(40, 60, 160, 180);
-    private Color ridgeColor = new Color(220, 100, 20, 80);
+    private Color ridgeColor = new Color(220, 100, 20, 50);
     private Color pathColor = new Color(120, 60, 120);
     private Color errorColor = new Color(250, 80, 80);
     private Color printColor = new Color(180, 200, 220);
@@ -86,6 +80,15 @@ public class LandmarkPanel extends JPanel {
             }
         }
 
+        // Arrêtes
+        graphics.setColor(ridgeColor);
+        for (Ridge ridge : graph.getRidgeList()) {
+            graphics.drawLine(changeRef(ridge.getFirstNode().getPosition()).getX(),
+                    changeRef(ridge.getFirstNode().getPosition()).getY(),
+                    changeRef(ridge.getSecondNode().getPosition()).getX(),
+                    changeRef(ridge.getSecondNode().getPosition()).getY());
+        }
+
         // Chemin
         graphics.setColor(pathColor);
         if(path.size() >0) {
@@ -97,6 +100,7 @@ public class LandmarkPanel extends JPanel {
         }
 
         // Clics
+        graphics.setFont(messageStyle);
         for(Vector clic : clics){
             Vector clicDisplay = changeRef(clic);
             graphics.fillOval(clicDisplay.getX() - 4, clicDisplay.getY() - 4, 8, 8);
@@ -117,7 +121,7 @@ public class LandmarkPanel extends JPanel {
 
         graphics.setColor(errorColor);
         if(errorMessage.length() != 0) {
-            int nbCarachterPerLine = errorLength/7;
+            int nbCarachterPerLine = errorLength/8;
             int nbLines = errorMessage.length()/nbCarachterPerLine;
             for (int i = 0; i <= nbLines; i++) {
                 String line = errorMessage.substring(i*nbCarachterPerLine, i*nbCarachterPerLine + Math.min((i+1)*nbCarachterPerLine, errorMessage.length() - i*nbCarachterPerLine));

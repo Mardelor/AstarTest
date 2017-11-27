@@ -37,8 +37,10 @@ public class Main {
                 display.drawPath(path);
                 display.removeErrorMess();
             }catch (PointOutOfLandmarkException e){
+                display.drawPath(new ArrayList<>());
                 display.printError("Out of the Landmark : please clic somewhere else !");
             }catch (NoPathFoundException e){
+                display.drawPath(new ArrayList<>());
                 display.printError("No Path between " + e.getBegin().toStringOnlyInt() + " and " + e.getEnd().toStringOnlyInt() + " : graph doesn't cover all nodes");
             }
         }
