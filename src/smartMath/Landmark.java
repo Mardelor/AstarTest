@@ -47,7 +47,7 @@ public class Landmark {
             for(int i=0; i<mode.getNumberOfObstacles(); i++){
                 int randX = MathLib.randomUniform(-sizeX/2 + TestMode.averageRayObstacle, sizeX/2 - TestMode.averageRayObstacle);
                 int randY = MathLib.randomUniform(-sizeY/2 + TestMode.averageRayObstacle, sizeY/2 - TestMode.averageRayObstacle);
-                int randRay = MathLib.randomBinom(10, 0.5)*TestMode.averageRayObstacle/5;
+                int randRay = MathLib.randomGaussian(TestMode.averageRayObstacle, 20);
                 listObst.add(new Circle(new Vector(randX, randY), randRay));
             }
         }

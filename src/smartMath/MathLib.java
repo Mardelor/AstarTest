@@ -44,6 +44,13 @@ public class MathLib {
                 && ((double)vec1.getX() - (double)vec2.getX())*((double)circle.getCenter().getX() - (double)vec2.getX()) + ((double)vec1.getY() - (double)vec2.getY())*((double)circle.getCenter().getY() - (double)vec2.getY()) >= 0;
     }
 
+    /** Réalise un tirage gaussien étant donné la moyenne et l'écart-type */
+    public static int randomGaussian(int average, double deviation){
+        Random rand = new Random();
+
+        return (int)((rand.nextGaussian()*deviation + average));
+    }
+
     /** Renvoie la réalisation d'une variable aléatoire avec paramètres données
      * @param n
      * @param p entre 0 et 1
