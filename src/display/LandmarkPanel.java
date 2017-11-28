@@ -20,7 +20,8 @@ public class LandmarkPanel extends JPanel {
 
     /** Graphe */
     private Graph graph;
-    private ArrayList<Vector> path;
+    private ArrayList<Vector> greenPath;
+    private ArrayList<Vector> purplePath;
     private ArrayList<Vector> clics;
 
     /** Informations */
@@ -32,7 +33,8 @@ public class LandmarkPanel extends JPanel {
     private Color obstacleColor = new Color(160, 40, 20, 160);
     private Color nodeColor = new Color(40, 60, 160, 180);
     private Color ridgeColor = new Color(220, 100, 50, 30);
-    private Color pathColor = new Color(120, 60, 120);
+    private Color greenPathColor = new Color(60, 160, 60);
+    private Color purplePathColor = new Color(160, 60, 160);
     private Color errorColor = new Color(250, 80, 80);
     private Color printColor = new Color(180, 200, 220);
 
@@ -41,7 +43,8 @@ public class LandmarkPanel extends JPanel {
         this.landmark = landmark;
         this.graph = graph;
 
-        path = new ArrayList<>();
+        greenPath = new ArrayList<>();
+        purplePath = new ArrayList<>();
         clics = new ArrayList<>();
         infoQueue = new ArrayList<>();
         errorMessage = "";
@@ -65,6 +68,9 @@ public class LandmarkPanel extends JPanel {
                     2 * circle.getRay(),
                     2 * circle.getRay());
         }
+
+        graphics.setColor(Color.LIGHT_GRAY);
+        graphics.fillRect(0, landmark.getSizeY() +1, landmark.getSizeX(), landmark.getSizeY());
 
         // Noeuds
         for (Node node : graph.getNodeList()) {
@@ -91,18 +97,28 @@ public class LandmarkPanel extends JPanel {
                     changeRef(ridge.getSecondNode().getPosition()).getY());
         }
 
-        // Chemin
-        graphics.setColor(pathColor);
-        if(path.size() >0) {
-            graphics.fillOval(changeRef(path.get(0)).getX() - 4, changeRef(path.get(0)).getY() - 4, 8, 8);
+        // Chemins
+        graphics.setColor(greenPathColor);
+        graphics.setFont(messageStyle);
+        if(greenPath.size() >0) {
+            graphics.fillOval(changeRef(greenPath.get(0)).getX() - 4, changeRef(greenPath.get(0)).getY() - 4, 8, 8);
+            graphics.drawString("Dijkstra", 20, 20);
         }
-        for(int i=0; i<path.size()-1; i++){
-            graphics.drawLine(changeRef(path.get(i)).getX(), changeRef(path.get(i)).getY(), changeRef(path.get(i+1)).getX(), changeRef(path.get(i+1)).getY());
-            graphics.fillOval(changeRef(path.get(i+1)).getX() - 4, changeRef(path.get(i+1)).getY() - 4, 8, 8);
+        for(int i=0; i<greenPath.size()-1; i++){
+            graphics.drawLine(changeRef(greenPath.get(i)).getX(), changeRef(greenPath.get(i)).getY(), changeRef(greenPath.get(i+1)).getX(), changeRef(greenPath.get(i+1)).getY());
+            graphics.fillOval(changeRef(greenPath.get(i+1)).getX() - 4, changeRef(greenPath.get(i+1)).getY() - 4, 8, 8);
+        }
+        graphics.setColor(purplePathColor);
+        if(purplePath.size() >0) {
+            graphics.fillOval(changeRef(purplePath.get(0)).getX() - 4, changeRef(purplePath.get(0)).getY() - 4, 8, 8);
+            graphics.drawString("Astar", 20, 40);
+        }
+        for(int i=0; i<purplePath.size()-1; i++){
+            graphics.drawLine(changeRef(purplePath.get(i)).getX(), changeRef(purplePath.get(i)).getY(), changeRef(purplePath.get(i+1)).getX(), changeRef(purplePath.get(i+1)).getY());
+            graphics.fillOval(changeRef(purplePath.get(i+1)).getX() - 4, changeRef(purplePath.get(i+1)).getY() - 4, 8, 8);
         }
 
         // Clics
-        graphics.setFont(messageStyle);
         for(Vector clic : clics){
             Vector clicDisplay = changeRef(clic);
             graphics.fillOval(clicDisplay.getX() - 4, clicDisplay.getY() - 4, 8, 8);
@@ -123,10 +139,10 @@ public class LandmarkPanel extends JPanel {
 
         graphics.setColor(errorColor);
         if(errorMessage.length() != 0) {
-            int nbCarachterPerLine = errorLength/8;
-            int nbLines = errorMessage.length()/nbCarachterPerLine;
+            int nbCharachterPerLine = errorLength/8;
+            int nbLines = errorMessage.length()/nbCharachterPerLine;
             for (int i = 0; i <= nbLines; i++) {
-                String line = errorMessage.substring(i*nbCarachterPerLine, i*nbCarachterPerLine + Math.min((i+1)*nbCarachterPerLine, errorMessage.length() - i*nbCarachterPerLine));
+                String line = errorMessage.substring(i*nbCharachterPerLine, i*nbCharachterPerLine + Math.min((i+1)*nbCharachterPerLine, errorMessage.length() - i*nbCharachterPerLine));
                 graphics.drawString(line, 150 + landmark.getSizeX()/2, landmark.getSizeY() + 40 + i * 20);
             }
         }
@@ -138,10 +154,26 @@ public class LandmarkPanel extends JPanel {
         return new Vector(vector.getX() + landmark.getSizeX()/2, landmark.getSizeY()/2 - vector.getY());
     }
 
-    /** Set un chemin
+    /** Set un chemin violet
      * @param path */
-    public void drawPath(ArrayList<Vector> path) {
-        this.path = path;
+    public void drawPathPurple(ArrayList<Vector> path) {
+        this.purplePath = path;
+        removeAll();
+        revalidate();
+    }
+
+    /** Set un chemin vert
+     * @param path */
+    public void drawPathGreen(ArrayList<Vector> path){
+        this.greenPath = path;
+        removeAll();
+        revalidate();
+    }
+
+    /** Reset les chemins */
+    public void resetPaths(){
+        this.greenPath = new ArrayList<>();
+        this.purplePath = new ArrayList<>();
         removeAll();
         revalidate();
     }

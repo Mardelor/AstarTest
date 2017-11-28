@@ -4,7 +4,7 @@ import graph.Node;
 import smartMath.Vector;
 import java.util.Comparator;
 
-public class ComparatorNode implements Comparator<Node> {
+public class ComparatorNodeHeuristic implements Comparator<Node> {
 
     /** Position visée */
     public static Vector aim;
@@ -12,7 +12,7 @@ public class ComparatorNode implements Comparator<Node> {
     /** La seule méthode utile de cette classe... */
     @Override
     public int compare(Node node1, Node node2){
-        if (computeHeuristic(node1) < computeHeuristic(node2)){
+        if (computeHeuristic(node1) > computeHeuristic(node2)){
             return 1;
         }
         else if(computeHeuristic(node1) == computeHeuristic(node2)){

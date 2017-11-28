@@ -4,52 +4,33 @@ import graph.Graph;
 import graph.Node;
 import graph.PointOutOfLandmarkException;
 import graph.Ridge;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import smartMath.Landmark;
-import smartMath.MathLib;
 import smartMath.Vector;
 
-import javax.swing.text.Segment;
 import java.util.*;
 
 /** La classe qui contient l'Astar.Astar */
-public class Astar {
-
-    /** Le repère */
-    private Landmark landmark;
-
-    /** Le graphe */
-    private Graph graph;
-
-    /** Liste ouverte */
-    private PriorityQueue<Node> openList;
+public class Astar extends Dijkstra {
 
     /** Liste fermée */
     private ArrayList<Node> closedList;
 
-    /** Noeuds spéciaux ! */
-    private Node beginNode;
-    private Node aimNode;
-
     /** Constructeur du bosseur !
      */
     public Astar(Landmark landmark, Graph graph){
-        this.landmark = landmark;
-        this.graph = graph;
+        super(landmark, graph);
 
-        openList = new PriorityQueue<>(new ComparatorNode());
+        openList = new PriorityQueue<>(new ComparatorNodeHeuristic());
         closedList = new ArrayList<>();
     }
 
     /** A* */
+    @Override
     public ArrayList<Vector> findPath(Vector begin, Vector aim) throws PointOutOfLandmarkException, NoPathFoundException {
 
         // On commence par mettre à jour le graphe vis-à-vis du dernier appel
-        if(beginNode != null) {
-            graph.deleteNode(beginNode);
-            graph.deleteNode(aimNode);
-            closedList.clear();
-            openList.clear();
-        }
+        closedList.clear();
 
         // On tente toujours la ligne droite
         if(!landmark.intersectAnyObstacles(begin, aim)){
@@ -60,13 +41,14 @@ public class Astar {
         }
 
         // Puis on intialise la pathfinding (la partie qui prend du temps)
-        int currentCost;
         initPathfinder(begin, aim);
+        int currentCost;;
 
         // Astar en lui-même
         while (!openList.isEmpty())
         {
             Node visited = openList.poll();
+
             if(visited.equals(aimNode)){
                 return reconstructPath();
             }
@@ -92,6 +74,7 @@ public class Astar {
             }
             closedList.add(visited);
         }
+
         throw new NoPathFoundException(begin, aim);
     }
 
@@ -99,7 +82,8 @@ public class Astar {
      * @param begin
      * @param aim
      */
-    private void initPathfinder(Vector begin, Vector aim) throws PointOutOfLandmarkException {
+    @Override
+    protected void initPathfinder(Vector begin, Vector aim) throws PointOutOfLandmarkException {
         if(landmark.isInObstacle(begin) || !landmark.isInLandmark(begin)){
             throw new PointOutOfLandmarkException(begin);
         }
@@ -108,24 +92,10 @@ public class Astar {
         }
         beginNode = new Node(begin);
         aimNode = new Node(aim);
-        graph.reinitHeuristic();
+        graph.reinitGraph();
         graph.addNode(beginNode);
         graph.addNode(aimNode);
-        ComparatorNode.aim = aim;
+        ComparatorNodeHeuristic.aim = aim;
         openList.add(beginNode);
-    }
-
-    /** Reconstruit le chemin */
-    private ArrayList<Vector> reconstructPath(){
-        ArrayList<Vector> toReturn = new ArrayList<Vector>();
-        Node visited = aimNode;
-        toReturn.add(aimNode.getPosition());
-
-        while (!(visited.getPredecessor().equals(beginNode))){
-            toReturn.add(0,visited.getPredecessor().getPosition());
-            visited = visited.getPredecessor();
-        }
-        toReturn.add(0,beginNode.getPosition());
-        return toReturn;
     }
 }

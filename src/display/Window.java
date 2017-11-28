@@ -34,8 +34,19 @@ public class Window extends JFrame {
     }
 
     /** Pour afficher le chemin */
-    public void drawPath(ArrayList<Vector> path){
-        this.panel.drawPath(path);
+    public void drawPath(ArrayList<Vector> path, Color color){
+        if(color.equals(Color.GREEN)) {
+            this.panel.drawPathGreen(path);
+        }
+        else{
+            this.panel.drawPathPurple(path);
+        }
+        repaint();
+    }
+
+    /** Met les chemin à zéro */
+    public void resetPath(){
+        this.panel.resetPaths();
         repaint();
     }
 

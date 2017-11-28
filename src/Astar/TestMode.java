@@ -3,12 +3,12 @@ package Astar;
 public enum TestMode {
 
     DEFAULT_OBSTACLES,
-    RANDOM_OBSTACLES(100),
+    RANDOM_OBSTACLES(20),
     ;
 
     /** Nombre qui peut servir en fonction du mode */
     private int numberOfObstacles;
-    public static int averageRayObstacle = 30;
+    public static int averageRayObstacle = 60;
 
     /** Constructors */
     TestMode(int defaultNumberObstacles){

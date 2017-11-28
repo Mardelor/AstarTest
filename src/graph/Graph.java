@@ -77,10 +77,11 @@ public class Graph {
     }
 
     /** Ré-initialise l'heuristique et le cout de chaque noeud */
-    public void reinitHeuristic(){
-        for(Node node : nodeList){
+    public void reinitGraph(){
+        for(Node node : nodeList) {
             node.setHeuristic(-1);
             node.setCostFromBegin(100000);
+            node.setPredecessor(null);
         }
     }
 

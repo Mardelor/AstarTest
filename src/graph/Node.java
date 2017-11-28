@@ -1,5 +1,6 @@
 package graph;
 
+import Astar.NoPathFoundException;
 import smartMath.Vector;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -11,7 +12,7 @@ public class Node {
     private Vector position;
 
     /** Prédecesseur */
-    private Node predecessor = null;
+    private Node predecessor;
     private int costFromBegin;
 
     /** Liste des aretes */
@@ -27,6 +28,8 @@ public class Node {
         this.position = position;
         ridgeList = new CopyOnWriteArrayList<>();
         heuristic = -1;
+        predecessor = null;
+        costFromBegin = 0;
     }
 
     /** Renvoie la distance entre deux noeuds
@@ -42,6 +45,15 @@ public class Node {
     public void createLink(Node other){
         ridgeList.add(new Ridge(this, other));
         other.getRidgeList().add(new Ridge(other, this));
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Node){
+            return ((Node) other).getPosition().equals(this.position);
+        }else{
+            return false;
+        }
     }
 
     /** Getters */
