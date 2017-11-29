@@ -56,6 +56,22 @@ public class Vector {
         return x*x + y*y;
     }
 
+    /** Retourne une approximation de la distance séparant les deux vecteurs en minimisant le temps de calcul */
+    public int quickDistanceTo(Vector other){
+        int squaredDistance = (other.x - this.x)*(other.x - this.x) + (other.y - this.y)*(other.y - this.y);
+        if(squaredDistance < 1){
+            return 0;
+        }
+
+        int approx = squaredDistance/10;
+
+        // Méthode de héron
+        while ((Math.abs(squaredDistance - approx*approx)/(2*approx)) > 1){
+            approx += (squaredDistance - approx*approx)/(2*approx);
+        }
+        return approx;
+    }
+
     /** Effectue le produit scalaire avec un second vecteur
      * @param other le second vecteur du produit scalaire
      */

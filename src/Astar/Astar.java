@@ -42,7 +42,7 @@ public class Astar extends Dijkstra {
 
         // Puis on intialise la pathfinding (la partie qui prend du temps)
         initPathfinder(begin, aim);
-        int currentCost;;
+        int currentCost;
 
         // Astar en lui-même
         while (!openList.isEmpty())
@@ -92,9 +92,11 @@ public class Astar extends Dijkstra {
         }
         beginNode = new Node(begin);
         aimNode = new Node(aim);
-        graph.reinitGraph();
+
         graph.addNode(beginNode);
         graph.addNode(aimNode);
+        graph.reinitGraph();
+
         ComparatorNodeHeuristic.aim = aim;
         openList.add(beginNode);
     }

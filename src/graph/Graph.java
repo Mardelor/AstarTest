@@ -1,5 +1,7 @@
 package graph;
 
+import Astar.TestMode;
+import org.junit.Test;
 import smartMath.Circle;
 import smartMath.Landmark;
 import smartMath.Vector;
@@ -94,7 +96,7 @@ public class Graph {
     private ArrayList<Node> placeNodes(Circle circle){
         Vector posCenter = circle.getCenter();
         ArrayList<Node> addNodes = new ArrayList<>();
-        int nbNodes = circle.getRay()/5;
+        int nbNodes = circle.getRay()/4;
         for(int i=-nbNodes/2; i<=nbNodes/2; i++){
             Vector posNode = new Vector(1.2*circle.getRay(), i*2*Math.PI/nbNodes);
             posNode.addVector(posCenter);

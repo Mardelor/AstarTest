@@ -33,8 +33,8 @@ public class LandmarkPanel extends JPanel {
     private Color obstacleColor = new Color(160, 40, 20, 160);
     private Color nodeColor = new Color(40, 60, 160, 180);
     private Color ridgeColor = new Color(220, 100, 50, 30);
-    private Color greenPathColor = new Color(60, 160, 60);
-    private Color purplePathColor = new Color(160, 60, 160);
+    private Color greenPathColor = new Color(60, 160, 60, 180);
+    private Color purplePathColor = new Color(160, 60, 160, 180);
     private Color errorColor = new Color(250, 80, 80);
     private Color printColor = new Color(180, 200, 220);
 

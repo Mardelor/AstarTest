@@ -30,10 +30,20 @@ public class JUnit_Comparator {
     public void testTime(){
         long timeStep = System.nanoTime();
         comparAstar.compare(example1, example2);
-        System.out.println("Temps Astar : " + (System.nanoTime() - timeStep));
+        System.out.println("Temps Astar 1rst : " + (System.nanoTime() - timeStep));
+
+        timeStep = System.nanoTime();
+        comparAstar.compare(example1, example2);
+        System.out.println("Temps Astar 2nd : " + (System.nanoTime() - timeStep));
 
         timeStep = System.nanoTime();
         comparDijkstra.compare(example1, example2);
         System.out.println("Temps Djikstra : " + (System.nanoTime() - timeStep));
+    }
+
+    @Test
+    public void testHeron(){
+        System.out.println("Héron : " + example2.getPosition().quickDistanceTo(example1.getPosition()));
+        System.out.println("Attendu : " + example2.getPosition().withdrawNewVector(example1.getPosition()).getRay());
     }
 }
