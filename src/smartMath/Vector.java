@@ -63,7 +63,7 @@ public class Vector {
             return 0;
         }
 
-        int approx = squaredDistance/10;
+        int approx = squaredDistance/2;
 
         // Méthode de héron
         while ((Math.abs(squaredDistance - approx*approx)/(2*approx)) > 1){

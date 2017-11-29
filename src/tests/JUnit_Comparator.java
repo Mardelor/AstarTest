@@ -1,7 +1,7 @@
 package tests;
 
 import Astar.ComparatorNodeDistance;
-import Astar.ComparatorNodeHeuristic;
+import Astar.ComparatorNodeSimpleHeuristic;
 import graph.Node;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import smartMath.Vector;
 public class JUnit_Comparator {
 
     /** Comparators */
-    private ComparatorNodeHeuristic comparAstar;
+    private ComparatorNodeSimpleHeuristic comparAstar;
     private ComparatorNodeDistance comparDijkstra;
 
     /** Examples nodes */
@@ -19,9 +19,9 @@ public class JUnit_Comparator {
 
     @Before
     public void setUp(){
-        comparAstar = new ComparatorNodeHeuristic();
+        comparAstar = new ComparatorNodeSimpleHeuristic();
         comparDijkstra = new ComparatorNodeDistance();
-        ComparatorNodeHeuristic.aim = new Vector(0,0);
+        ComparatorNodeSimpleHeuristic.aim = new Vector(0,0);
         example1 = new Node(new Vector(200, 800));
         example2 = new Node(new Vector(300, 900));
     }

@@ -4,7 +4,6 @@ import graph.Graph;
 import graph.Node;
 import graph.PointOutOfLandmarkException;
 import graph.Ridge;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import smartMath.Landmark;
 import smartMath.Vector;
 
@@ -21,7 +20,7 @@ public class Astar extends Dijkstra {
     public Astar(Landmark landmark, Graph graph){
         super(landmark, graph);
 
-        openList = new PriorityQueue<>(new ComparatorNodeHeuristic());
+        openList = new PriorityQueue<>(new ComparatorNodeSimpleHeuristic());
         closedList = new ArrayList<>();
     }
 
@@ -97,7 +96,7 @@ public class Astar extends Dijkstra {
         graph.addNode(aimNode);
         graph.reinitGraph();
 
-        ComparatorNodeHeuristic.aim = aim;
+        ComparatorNodeSimpleHeuristic.aim = aim;
         openList.add(beginNode);
     }
 }

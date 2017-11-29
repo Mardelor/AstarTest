@@ -4,7 +4,7 @@ import graph.Node;
 import smartMath.Vector;
 import java.util.Comparator;
 
-public class ComparatorNodeHeuristic implements Comparator<Node> {
+public class ComparatorNodeSimpleHeuristic implements Comparator<Node> {
 
     /** Position visée */
     public static Vector aim;

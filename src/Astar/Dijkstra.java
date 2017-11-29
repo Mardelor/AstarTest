@@ -6,10 +6,8 @@ import graph.PointOutOfLandmarkException;
 import graph.Ridge;
 import smartMath.Landmark;
 import smartMath.Vector;
-import sun.awt.windows.ThemeReader;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.PriorityQueue;
 
 /** La classe qui contient le Djikstra, afin de le comparer au A* */
