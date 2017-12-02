@@ -1,7 +1,5 @@
 package smartMath;
 
-import com.sun.nio.sctp.PeerAddressChangeNotification;
-
 import java.util.Random;
 
 /** Lib de methodes statiques pour calculs mathématiques */

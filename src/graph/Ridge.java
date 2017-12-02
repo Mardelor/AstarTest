@@ -43,12 +43,10 @@ public class Ridge {
             if ((firstNode.equals(((Ridge) other).firstNode) && secondNode.equals(((Ridge) other).secondNode))
                     || (firstNode.equals(((Ridge) other).secondNode) && secondNode.equals(((Ridge) other).firstNode))) {
                 return true;
-            }else {
-                return false;
             }
-        }else{
             return false;
         }
+        return false;
     }
 
     /** Getters */

@@ -1,8 +1,6 @@
 package graph;
 
-import Astar.NoPathFoundException;
 import smartMath.Vector;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /** Classe implémentant le concept de noeuds dans un graphe */
@@ -51,9 +49,8 @@ public class Node {
     public boolean equals(Object other){
         if(other instanceof Node){
             return ((Node) other).getPosition().equals(this.position);
-        }else{
-            return false;
         }
+        return false;
     }
 
     /** Getters */

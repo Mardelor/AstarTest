@@ -1,7 +1,5 @@
 package graph;
 
-import Astar.TestMode;
-import org.junit.Test;
 import smartMath.Circle;
 import smartMath.Landmark;
 import smartMath.Vector;

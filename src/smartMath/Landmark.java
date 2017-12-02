@@ -1,11 +1,9 @@
 package smartMath;
 
 import Astar.TestMode;
-import graph.Node;
 import graph.Ridge;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /** Un repère délimité contenant des obstacles */
 public class Landmark {

@@ -58,18 +58,18 @@ public class Vector {
 
     /** Retourne une approximation de la distance séparant les deux vecteurs en minimisant le temps de calcul */
     public int quickDistanceTo(Vector other){
-        int squaredDistance = (other.x - this.x)*(other.x - this.x) + (other.y - this.y)*(other.y - this.y);
+        int squaredDistance = ((other.x - this.x)*(other.x - this.x) + (other.y - this.y)*(other.y - this.y));
         if(squaredDistance < 1){
             return 0;
         }
 
-        int approx = squaredDistance/2;
+        double approx = squaredDistance/2.0;
 
         // Méthode de héron
         while ((Math.abs(squaredDistance - approx*approx)/(2*approx)) > 1){
             approx += (squaredDistance - approx*approx)/(2*approx);
         }
-        return approx;
+        return (int) approx;
     }
 
     /** Effectue le produit scalaire avec un second vecteur
@@ -139,8 +139,12 @@ public class Vector {
     /** Egalité selon les cartésiennes
      * @param other
      */
-    public boolean equals(Vector other){
-        return (this.x == other.x & this.y == other.y);
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Vector) {
+            return (this.x == ((Vector) other).getX() & this.y == ((Vector) other).getY());
+        }
+        return false;
     }
 
     /** Affiche en cartesiennes et en polaires (avec troncature pour les doubles)

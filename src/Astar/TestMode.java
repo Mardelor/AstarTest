@@ -7,9 +7,9 @@ public enum TestMode {
     ;
 
     /** Nombre qui peut servir en fonction du mode */
-    public static int numberOfObstacles = 60;
-    public static int averageRayObstacle = 50;
-    public static int standartDeviation = 25;
+    public static int numberOfObstacles = 80;
+    public static int averageRayObstacle = 40;
+    public static int standartDeviation = 20;
 
     /** Constructors */
     TestMode(){}
