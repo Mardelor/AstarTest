@@ -1,4 +1,4 @@
-package Astar;
+package algorithms;
 
 import smartMath.Vector;
 

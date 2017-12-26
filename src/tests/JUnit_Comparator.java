@@ -1,7 +1,7 @@
 package tests;
 
-import Astar.ComparatorNodeDistance;
-import Astar.ComparatorNodeSimpleHeuristic;
+import algorithms.ComparatorNodeDistance;
+import algorithms.ComparatorNodeSimpleHeuristic;
 import graph.Node;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +30,11 @@ public class JUnit_Comparator {
     public void testTime(){
         long timeStep = System.nanoTime();
         comparAstar.compare(example1, example2);
-        System.out.println("Temps Astar 1rst : " + (System.nanoTime() - timeStep));
+        System.out.println("Temps algorithms 1rst : " + (System.nanoTime() - timeStep));
 
         timeStep = System.nanoTime();
         comparAstar.compare(example1, example2);
-        System.out.println("Temps Astar 2nd : " + (System.nanoTime() - timeStep));
+        System.out.println("Temps algorithms 2nd : " + (System.nanoTime() - timeStep));
 
         timeStep = System.nanoTime();
         comparDijkstra.compare(example1, example2);

@@ -1,7 +1,7 @@
 package display;
 
 import graph.Graph;
-import smartMath.Landmark;
+import landmark.Landmark;
 import smartMath.Vector;
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ public class Window extends JFrame {
 
     /** Constructeur */
     public Window(Landmark landmark, Graph graph){
-        this.setTitle("Landmark - Astar");
+        this.setTitle("Landmark - algorithms");
         this.setSize(landmark.getSizeX()+3, landmark.getSizeY()+30+340);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -54,7 +54,8 @@ public class Window extends JFrame {
     public ArrayList<Vector> waitLRClic() throws InterruptedException{
         ArrayList<Vector> clics = new ArrayList<>();
         while(mouse.getLeftClickPosition() == null || mouse.getRightClickPosition() == null){
-            Thread.sleep(100);
+            Thread.sleep(50);
+            repaint();
         }
         clics.add(mouse.getLeftClickPosition());
         clics.add(mouse.getRightClickPosition());

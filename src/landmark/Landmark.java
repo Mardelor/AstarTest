@@ -1,15 +1,21 @@
-package smartMath;
+package landmark;
 
-import Astar.TestMode;
+import algorithms.TestMode;
 import graph.Ridge;
+import smartMath.Circle;
+import smartMath.MathLib;
+import smartMath.MovingCircle;
+import smartMath.Vector;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /** Un repère délimité contenant des obstacles */
 public class Landmark {
 
     /** Liste de cercles représentant un obstacle */
-    private ArrayList<Circle> listObst;
+    private ArrayList<Circle> listStaticObst;
+    private CopyOnWriteArrayList<MovingCircle> listMovingObst;
     private TestMode mode;
 
     /** Délimitation du landmark */
@@ -29,7 +35,8 @@ public class Landmark {
         this.upRight = new Vector(sizeX/2, sizeY/2);
         this.downLeft = new Vector(-sizeX/2, -sizeY/2);
         this.downRight = new Vector(sizeX/2, -sizeY/2);
-        listObst = new ArrayList<>();
+        listStaticObst = new ArrayList<>();
+        listMovingObst = new CopyOnWriteArrayList<>();
 
         initObstacle();
     }
@@ -43,22 +50,22 @@ public class Landmark {
     private void initObstacle(){
         if(mode.equals(TestMode.RANDOM_OBSTACLES)){
             for(int i=0; i<TestMode.numberOfObstacles; i++){
-                int randX = MathLib.randomUniform(-sizeX/2 + TestMode.averageRayObstacle, sizeX/2 - TestMode.averageRayObstacle);
-                int randY = MathLib.randomUniform(-sizeY/2 + TestMode.averageRayObstacle, sizeY/2 - TestMode.averageRayObstacle);
-                int randRay = MathLib.randomGaussian(TestMode.averageRayObstacle, TestMode.standartDeviation);
-                listObst.add(new Circle(new Vector(randX, randY), randRay));
+                int randX = (int) MathLib.randomUniform(-sizeX/2 + TestMode.averageRayObstacle, sizeX/2 - TestMode.averageRayObstacle);
+                int randY = (int) MathLib.randomUniform(-sizeY/2 + TestMode.averageRayObstacle, sizeY/2 - TestMode.averageRayObstacle);
+                int randRay = (int) MathLib.randomGaussian(TestMode.averageRayObstacle, TestMode.standartDeviation);
+                listStaticObst.add(new Circle(new Vector(randX, randY), randRay));
             }
         }
         else if(mode.equals(TestMode.DEFAULT_OBSTACLES)){
-            listObst.add(new Circle(new Vector(0, sizeY / 4), (int) (sizeY / 10.0)));
-            listObst.add(new Circle(upLeft.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
-            listObst.add(new Circle(upLeft.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
-            listObst.add(new Circle(upRight.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
-            listObst.add(new Circle(upRight.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
-            listObst.add(new Circle(downLeft.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
-            listObst.add(new Circle(downLeft.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
-            listObst.add(new Circle(downRight.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
-            listObst.add(new Circle(downRight.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
+            listStaticObst.add(new Circle(new Vector(0, sizeY / 4), (int) (sizeY / 10.0)));
+            listStaticObst.add(new Circle(upLeft.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
+            listStaticObst.add(new Circle(upLeft.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
+            listStaticObst.add(new Circle(upRight.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
+            listStaticObst.add(new Circle(upRight.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
+            listStaticObst.add(new Circle(downLeft.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
+            listStaticObst.add(new Circle(downLeft.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
+            listStaticObst.add(new Circle(downRight.rescaleNewVector(0.3), (int) ((sizeY + sizeX) / 24.0)));
+            listStaticObst.add(new Circle(downRight.rescaleNewVector(0.6), (int) ((sizeY + sizeX) / 24.0)));
         }
         Ridge.staticCost = 0;
     }
@@ -67,7 +74,12 @@ public class Landmark {
      * @param toVerify
      */
     public boolean isInObstacle(Vector toVerify){
-        for (Circle circle : listObst){
+        for (Circle circle : listStaticObst){
+            if(toVerify.withdrawNewVector(circle.getCenter()).getRay() <= circle.getRay()){
+                return true;
+            }
+        }
+        for (Circle circle : listMovingObst){
             if(toVerify.withdrawNewVector(circle.getCenter()).getRay() <= circle.getRay()){
                 return true;
             }
@@ -80,7 +92,12 @@ public class Landmark {
      * @param vec2
      */
     public boolean intersectAnyObstacles(Vector vec1, Vector vec2){
-        for(Circle circle : listObst){
+        for(Circle circle : listStaticObst){
+            if(MathLib.intersect(vec1, vec2, circle)){
+                return true;
+            }
+        }
+        for(Circle circle : listMovingObst){
             if(MathLib.intersect(vec1, vec2, circle)){
                 return true;
             }
@@ -89,8 +106,11 @@ public class Landmark {
     }
 
     /** Getters & Setters */
-    public ArrayList<Circle> getListObst() {
-        return listObst;
+    public ArrayList<Circle> getListStaticObst() {
+        return listStaticObst;
+    }
+    public CopyOnWriteArrayList<MovingCircle> getListMovingObst() {
+        return listMovingObst;
     }
     public int getSizeX() {
         return sizeX;

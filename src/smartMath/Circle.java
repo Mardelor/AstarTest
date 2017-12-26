@@ -4,8 +4,8 @@ package smartMath;
 public class Circle {
 
     /** Centre & Rayon */
-    private Vector center;
-    private int ray;
+    protected Vector center;
+    protected int ray;
 
     /** Constructeur d'un cercle
      * @param center

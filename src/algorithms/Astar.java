@@ -1,15 +1,15 @@
-package Astar;
+package algorithms;
 
 import graph.Graph;
 import graph.Node;
 import graph.PointOutOfLandmarkException;
 import graph.Ridge;
-import smartMath.Landmark;
+import landmark.Landmark;
 import smartMath.Vector;
 
 import java.util.*;
 
-/** La classe qui contient l'Astar.Astar */
+/** La classe qui contient l'algorithms.algorithms */
 public class Astar extends Dijkstra {
 
     /** Liste fermée */
@@ -43,7 +43,7 @@ public class Astar extends Dijkstra {
         initPathfinder(begin, aim);
         int currentCost;
 
-        // Astar en lui-même
+        // algorithms en lui-même
         while (!openList.isEmpty())
         {
             Node visited = openList.poll();

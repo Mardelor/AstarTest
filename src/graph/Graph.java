@@ -1,7 +1,7 @@
 package graph;
 
 import smartMath.Circle;
-import smartMath.Landmark;
+import landmark.Landmark;
 import smartMath.Vector;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ public class Graph {
     private HashSet<Ridge> ridgeList;
 
     /** Liste des obstacles */
-    private ArrayList<Circle> obstacleList;
+    private ArrayList<Circle> staticObstacleList;
 
     /** Repère */
     private Landmark landmark;
@@ -27,7 +27,7 @@ public class Graph {
      */
     public Graph(Landmark landmark){
         this.landmark = landmark;
-        this.obstacleList = landmark.getListObst();
+        this.staticObstacleList = landmark.getListStaticObst();
         this.nodeList = new CopyOnWriteArrayList<>();
         this.staticNodes = new ArrayList<>();
         this.ridgeList = new HashSet<>();
@@ -46,7 +46,7 @@ public class Graph {
 
     /** Placement des noeuds */
     private void initNodes(){
-        for(Circle circle : obstacleList){
+        for(Circle circle : staticObstacleList){
             placeNodes(circle);
         }
         staticNodes.add(new Node(landmark.getUpLeft().addNewVector(new Vector(20, -20))));

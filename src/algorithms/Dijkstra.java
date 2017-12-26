@@ -1,10 +1,10 @@
-package Astar;
+package algorithms;
 
 import graph.Graph;
 import graph.Node;
 import graph.PointOutOfLandmarkException;
 import graph.Ridge;
-import smartMath.Landmark;
+import landmark.Landmark;
 import smartMath.Vector;
 
 import java.util.ArrayList;

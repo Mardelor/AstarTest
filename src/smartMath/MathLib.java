@@ -43,10 +43,10 @@ public class MathLib {
     }
 
     /** Réalise un tirage gaussien étant donné la moyenne et l'écart-type */
-    public static int randomGaussian(int average, double deviation){
+    public static double randomGaussian(double average, double deviation){
         Random rand = new Random();
 
-        return (int)((rand.nextGaussian()*deviation + average));
+        return (rand.nextGaussian()*deviation + average);
     }
 
     /** Renvoie la réalisation d'une variable aléatoire avec paramètres données
@@ -73,9 +73,17 @@ public class MathLib {
      * @param begin
      * @param end
      */
-    public static int randomUniform(int begin, int end){
+    public static double randomUniform(double begin, double end){
         Random rand = new Random();
-        return (int)(rand.nextDouble()*(end - begin) + begin);
+        return (rand.nextDouble()*(end - begin) + begin);
+    }
+
+    /** Renvoie une réalisation d'une Bernouilli de paramètre p
+     * @param p
+     */
+    public static boolean randomBernouilli(double p){
+        Random rand = new Random();
+        return rand.nextDouble() < p;
     }
 }
 

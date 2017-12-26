@@ -4,7 +4,7 @@ import graph.Graph;
 import graph.Node;
 import graph.Ridge;
 import smartMath.Circle;
-import smartMath.Landmark;
+import landmark.Landmark;
 import smartMath.Vector;
 
 import javax.swing.*;
@@ -30,7 +30,8 @@ public class LandmarkPanel extends JPanel {
     private Font messageStyle = new Font("Default", Font.BOLD, 12);
 
     /** Couleurs */
-    private Color obstacleColor = new Color(160, 40, 20, 160);
+    private Color staticObstacleColor = new Color(160, 40, 20, 160);
+    private Color movingObstacleColor = new Color(160, 80, 40, 160);
     private Color nodeColor = new Color(40, 60, 160, 180);
     private Color ridgeColor = new Color(200, 125, 50, 8);
     private Color greenPathColor = new Color(60, 160, 60, 200);
@@ -60,13 +61,21 @@ public class LandmarkPanel extends JPanel {
         graphics.setColor(Color.DARK_GRAY);
         graphics.drawRect(changeRef(landmark.getUpLeft()).getX(), changeRef(landmark.getUpLeft()).getY(), landmark.getSizeX(), landmark.getSizeY());
 
-        graphics.setColor(obstacleColor);
-        // Obstacles
-        for (Circle circle : landmark.getListObst()) {
+        graphics.setColor(staticObstacleColor);
+        // Obstacles statics
+        for (Circle circle : landmark.getListStaticObst()) {
             graphics.fillOval((this.changeRef(circle.getCenter()).getX() - circle.getRay()),
                     (this.changeRef(circle.getCenter()).getY() - circle.getRay()),
                     2 * circle.getRay(),
                     2 * circle.getRay());
+        }
+        graphics.setColor(movingObstacleColor);
+        // Obstacles mouvants
+        for (Circle circle : landmark.getListMovingObst()) {
+            graphics.fillOval((this.changeRef(circle.getCenter()).getX() - circle.getRay()),
+                    (this.changeRef(circle.getCenter()).getY() - circle.getRay()),
+                    2*circle.getRay(),
+                    2*circle.getRay());
         }
 
         graphics.setColor(Color.LIGHT_GRAY);
