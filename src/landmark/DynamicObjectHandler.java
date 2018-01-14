@@ -72,7 +72,7 @@ public class DynamicObjectHandler extends Thread {
                 if(follower != null){
                     follower.updatePosition();
                 }
-                Thread.sleep(40);
+                Thread.sleep(50);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }

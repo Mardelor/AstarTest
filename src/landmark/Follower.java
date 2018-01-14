@@ -22,8 +22,8 @@ public class Follower extends MovingCircle {
         this.center.addVector(speedVector);
         if(!followedPath.isEmpty()) {
             speedVector = followedPath.get(0).withdrawNewVector(center);
-            if(speedVector.getRay() > 4){
-                speedVector.setRay(4);
+            if(speedVector.getRay() > 10){
+                speedVector.setRay(10);
             }else{
                 updateAim();
             }
