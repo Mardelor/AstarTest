@@ -136,6 +136,12 @@ public class Vector {
         this.setRay(scale*ray);
     }
 
+    /** Clone le vecteur */
+    @Override
+    public Object clone(){
+        return new Vector(this.x, this.y);
+    }
+
     /** Egalité selon les cartésiennes
      * @param other
      */

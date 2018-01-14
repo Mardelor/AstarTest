@@ -20,6 +20,12 @@ public class ThreadInterface extends Thread{
     /** Fonction principale */
     @Override
     public void run(){
+        try {
+            Thread.sleep(50);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         while(this.show){
             try {
                 window.repaint();

@@ -6,7 +6,8 @@ import display.Window;
 import graph.Graph;
 import graph.PointOutOfLandmarkException;
 import algorithms.TestMode;
-import landmark.DynamicObstacleHandler;
+import landmark.DynamicObjectHandler;
+import landmark.Follower;
 import landmark.Landmark;
 import smartMath.Vector;
 
@@ -21,7 +22,7 @@ public class Main {
     public static Astar astar;
     public static Dijkstra dijkstra;
     public static Window display;
-    public static DynamicObstacleHandler dynamicObstacleHandler;
+    public static DynamicObjectHandler dynamicObjectHandler;
     public static ThreadInterface gInterface;
 
     /** Méthode principale */
@@ -32,13 +33,15 @@ public class Main {
         astar = new Astar(landmark, graph);
         dijkstra = new Dijkstra(landmark, graph);
         gInterface = new ThreadInterface(landmark, graph);
+        double initialisationTime = System.currentTimeMillis() - timeStep;
+
         display = gInterface.getWindow();
-        dynamicObstacleHandler = new DynamicObstacleHandler(landmark);
+        dynamicObjectHandler = new DynamicObjectHandler(landmark);
 
-        dynamicObstacleHandler.start();
         gInterface.start();
+        dynamicObjectHandler.start();
 
-        display.printDebug("Time to initialize : " + (System.currentTimeMillis()-timeStep) + " ms,");
+        display.printDebug("Time to initialize : " + initialisationTime + " ms,");
         display.printDebug("Creating " + graph.getNodeList().size() + " Nodes, and " + graph.getRidgeList().size() + " Ridges");
         display.printDebug("To find a path, please clic on the Landmark : LEFT for the start, RIGHT for the aim");
         ArrayList<Vector> clics;
@@ -55,6 +58,7 @@ public class Main {
                 pathAstar = astar.findPath(clics.get(0), clics.get(1));
                 display.printDebug("Astar Time to compute path : " + getTimeDuration(timeStep) + " ms, going through " + pathAstar.size() + " nodes,");
                 display.printDebug("for a distance of " + getDistanceFromPath(pathAstar));
+                dynamicObjectHandler.createFollower(pathAstar);
                 display.drawPath(pathAstar, Color.PINK);
 
                 timeStep = System.nanoTime();

@@ -16,6 +16,7 @@ public class Landmark {
     /** Liste de cercles représentant un obstacle */
     private ArrayList<Circle> listStaticObst;
     private CopyOnWriteArrayList<MovingCircle> listMovingObst;
+    private Follower follower;
     private TestMode mode;
 
     /** Délimitation du landmark */
@@ -132,5 +133,11 @@ public class Landmark {
     }
     public Vector getDownRight() {
         return downRight;
+    }
+    public Follower getFollower() {
+        return follower;
+    }
+    public void setFollower(Follower follower) {
+        this.follower = follower;
     }
 }

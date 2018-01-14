@@ -6,9 +6,10 @@ import smartMath.MathLib;
 import smartMath.MovingCircle;
 import smartMath.Vector;
 
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class DynamicObstacleHandler extends Thread {
+public class DynamicObjectHandler extends Thread {
 
     /** Landmark */
     private Landmark landmark;
@@ -16,11 +17,14 @@ public class DynamicObstacleHandler extends Thread {
     /** Liste des obstacles */
     private CopyOnWriteArrayList<MovingCircle> dynamicObstacles;
 
+    /** Le suiveur de chemin */
+    private Follower follower;
+
     /** Paramètre d'une VA de Bernouilli */
     private double bernouilliParam;
 
     /** Constructeur */
-    public DynamicObstacleHandler(Landmark landmark){
+    public DynamicObjectHandler(Landmark landmark){
         this.landmark = landmark;
         this.dynamicObstacles = landmark.getListMovingObst();
         this.bernouilliParam = TestMode.bernouilliMovingPopObstacle;
@@ -45,11 +49,17 @@ public class DynamicObstacleHandler extends Thread {
     /** Met à jour la position des obstacles mouvants */
     private void updateMovingObstacle(){
         for(MovingCircle obstacle : dynamicObstacles){
-            obstacle.updatePosiion();
+            obstacle.updatePosition();
             if(!landmark.isInLandmark(obstacle.getCenter())){
                 dynamicObstacles.remove(obstacle);
             }
         }
+    }
+
+    /** Initialise un follower */
+    public void createFollower(ArrayList<Vector> path){
+        this.follower = new Follower(40, path);
+        landmark.setFollower(follower);
     }
 
     /** Le Thread se contente de rajouter des obstacles et de les mettre à jour/supprimer */
@@ -59,7 +69,10 @@ public class DynamicObstacleHandler extends Thread {
             try {
                 addMovingObstacle();
                 updateMovingObstacle();
-                Thread.sleep(50);
+                if(follower != null){
+                    follower.updatePosition();
+                }
+                Thread.sleep(40);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }

@@ -30,14 +30,16 @@ public class LandmarkPanel extends JPanel {
     private Font messageStyle = new Font("Default", Font.BOLD, 12);
 
     /** Couleurs */
-    private Color staticObstacleColor = new Color(160, 40, 20, 160);
-    private Color movingObstacleColor = new Color(160, 80, 40, 160);
+    private Color staticObstacleColor = new Color(160, 60, 40, 160);
+    private Color movingObstacleColor = new Color(180, 180, 60, 160);
     private Color nodeColor = new Color(40, 60, 160, 180);
     private Color ridgeColor = new Color(200, 125, 50, 8);
     private Color greenPathColor = new Color(60, 160, 60, 200);
     private Color purplePathColor = new Color(160, 60, 160, 200);
     private Color errorColor = new Color(250, 80, 80);
     private Color printColor = new Color(180, 200, 220);
+    private Color backgroundColor = new Color(10, 10, 20);
+    private Color followerColor = new Color(160, 180,200,200);
 
     /** Constructeur */
     public LandmarkPanel(Landmark landmark, Graph graph){
@@ -55,7 +57,7 @@ public class LandmarkPanel extends JPanel {
     @Override
     public void paintComponent(Graphics graphics){
 
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(backgroundColor);
         // Le Landmark
         graphics.fillRect(changeRef(landmark.getUpLeft()).getX(), changeRef(landmark.getUpLeft()).getY(), landmark.getSizeX(), landmark.getSizeY());
         graphics.setColor(Color.DARK_GRAY);
@@ -134,8 +136,17 @@ public class LandmarkPanel extends JPanel {
             graphics.drawString(clic.toStringOnlyInt(), clicDisplay.getX() - 30, clicDisplay.getY() + 20);
         }
 
+        // Follower
+        graphics.setColor(followerColor);
+        if(landmark.getFollower() !=null) {
+            graphics.fillOval(changeRef(landmark.getFollower().getCenter()).getX() - landmark.getFollower().getRay(),
+                    changeRef(landmark.getFollower().getCenter()).getY() - landmark.getFollower().getRay(),
+                    landmark.getFollower().getRay() * 2,
+                    landmark.getFollower().getRay() * 2);
+        }
+
         // Infos
-        graphics.setColor(Color.DARK_GRAY);
+        graphics.setColor(backgroundColor);
         int debugLength = (landmark.getSizeX() - 40)/2 + 110;
         graphics.fillRoundRect(20, landmark.getSizeY() + 20, debugLength, 300, 20, 20);
         int errorLength = (landmark.getSizeX() - 40)/2 - 130;
