@@ -1,6 +1,7 @@
 import algorithms.Astar;
 import algorithms.Dijkstra;
 import algorithms.NoPathFoundException;
+import display.ThreadInterface;
 import display.Window;
 import graph.Graph;
 import graph.PointOutOfLandmarkException;
@@ -21,18 +22,22 @@ public class Main {
     public static Dijkstra dijkstra;
     public static Window display;
     public static DynamicObstacleHandler dynamicObstacleHandler;
+    public static ThreadInterface gInterface;
 
     /** Méthode principale */
     public static void main(String[] args) throws InterruptedException{
         double timeStep = System.currentTimeMillis();
-        landmark = new Landmark(1000,600, TestMode.RANDOM_OBSTACLES);
+        landmark = new Landmark(1400,700, TestMode.RANDOM_OBSTACLES);
         graph = new Graph(landmark);
         astar = new Astar(landmark, graph);
         dijkstra = new Dijkstra(landmark, graph);
-        display = new Window(landmark, graph);
+        gInterface = new ThreadInterface(landmark, graph);
+        display = gInterface.getWindow();
         dynamicObstacleHandler = new DynamicObstacleHandler(landmark);
 
         dynamicObstacleHandler.start();
+        gInterface.start();
+
         display.printDebug("Time to initialize : " + (System.currentTimeMillis()-timeStep) + " ms,");
         display.printDebug("Creating " + graph.getNodeList().size() + " Nodes, and " + graph.getRidgeList().size() + " Ridges");
         display.printDebug("To find a path, please clic on the Landmark : LEFT for the start, RIGHT for the aim");

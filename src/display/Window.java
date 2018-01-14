@@ -41,26 +41,22 @@ public class Window extends JFrame {
         else{
             this.panel.drawPathPurple(path);
         }
-        repaint();
     }
 
     /** Met les chemin à zéro */
     public void resetPath(){
         this.panel.resetPaths();
-        repaint();
     }
 
     /** Attend les clics gauche et droit et renvoie leur position sur le landmark */
     public ArrayList<Vector> waitLRClic() throws InterruptedException{
         ArrayList<Vector> clics = new ArrayList<>();
         while(mouse.getLeftClickPosition() == null || mouse.getRightClickPosition() == null){
-            Thread.sleep(50);
-            repaint();
+            Thread.sleep(1);
         }
         clics.add(mouse.getLeftClickPosition());
         clics.add(mouse.getRightClickPosition());
         panel.setClics(clics);
-        repaint();
         mouse.resetClicks();
         return clics;
     }
@@ -79,14 +75,12 @@ public class Window extends JFrame {
      * @param informations */
     public void printDebug(String informations){
         panel.printDebug(informations);
-        repaint();
     }
 
     /** Affiche errerus (en rouge)
      * @param errors */
     public void printError(String errors){
         panel.printError(errors);
-        repaint();
     }
 
     /** ... */

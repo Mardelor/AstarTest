@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import smartMath.Vector;
 
-public class JUnit_Comparator {
+public class JUnit_Opti {
 
     /** Comparators */
     private ComparatorNodeSimpleHeuristic comparAstar;

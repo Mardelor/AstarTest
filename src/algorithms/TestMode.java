@@ -7,11 +7,11 @@ public enum TestMode {
     ;
 
     /** Nombre qui peut servir en fonction du mode */
-    public static int numberOfObstacles = 10;
-    public static int averageRayObstacle = 30;
-    public static int standartDeviation = 15;
-    public static int averageRayMovingObstacle = 40;
-    public static int standartDeviationMovingObstacle = 5;
+    public static int numberOfObstacles = 50;
+    public static int averageRayObstacle = 50;
+    public static int standartDeviation = 10;
+    public static int averageRayMovingObstacle = 50;
+    public static int standartDeviationMovingObstacle = 10;
     public static double bernouilliMovingPopObstacle = Math.pow(10, -4);
     public static double initialSpeed = 2;
 

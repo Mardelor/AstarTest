@@ -82,7 +82,7 @@ public class LandmarkPanel extends JPanel {
         graphics.fillRect(0, landmark.getSizeY() +1, landmark.getSizeX(), landmark.getSizeY());
 
         // Noeuds
-        for (Node node : graph.getNodeList()) {
+        /* for (Node node : graph.getNodeList()) {
             graphics.setColor(nodeColor);
             Vector positionDisplay = changeRef(node.getPosition());
             graphics.fillOval(positionDisplay.getX() - 2,
@@ -104,7 +104,7 @@ public class LandmarkPanel extends JPanel {
                     changeRef(ridge.getFirstNode().getPosition()).getY(),
                     changeRef(ridge.getSecondNode().getPosition()).getX(),
                     changeRef(ridge.getSecondNode().getPosition()).getY());
-        }
+        }*/
 
         // Chemins
         graphics.setColor(greenPathColor);
@@ -167,32 +167,24 @@ public class LandmarkPanel extends JPanel {
      * @param path */
     public void drawPathPurple(ArrayList<Vector> path) {
         this.purplePath = path;
-        removeAll();
-        revalidate();
     }
 
     /** Set un chemin vert
      * @param path */
     public void drawPathGreen(ArrayList<Vector> path){
         this.greenPath = path;
-        removeAll();
-        revalidate();
     }
 
     /** Reset les chemins */
     public void resetPaths(){
         this.greenPath = new ArrayList<>();
         this.purplePath = new ArrayList<>();
-        removeAll();
-        revalidate();
     }
 
     /** Set les positions des clics
      * @param clics */
     public void setClics(ArrayList<Vector> clics){
         this.clics = clics;
-        removeAll();
-        revalidate();
     }
 
     /** Affiche des infos dans l'interface
@@ -202,16 +194,12 @@ public class LandmarkPanel extends JPanel {
         if(infoQueue.size() > 14){
             infoQueue.remove(0);
         }
-        removeAll();
-        revalidate();
     }
 
     /** Affiche les erreurs sur l'interface
      * @param message */
     public void printError(String message){
         errorMessage = message;
-        removeAll();
-        revalidate();
     }
 
     /** Reset le message d'erreur à 0 */
