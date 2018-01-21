@@ -44,25 +44,28 @@ public class Main {
         display.printDebug("Time to initialize : " + initialisationTime + " ms,");
         display.printDebug("Creating " + graph.getNodeList().size() + " Nodes, and " + graph.getRidgeList().size() + " Ridges");
         display.printDebug("To find a path, please clic on the Landmark : LEFT for the start, RIGHT for the aim");
-        ArrayList<Vector> clics;
+        Vector clics;
         ArrayList<Vector> pathAstar;
         ArrayList<Vector> pathDijkstra;
+        ArrayList<Vector> basicPath = new ArrayList<>();
+        basicPath.add(new Vector(0,0));
+        dynamicObjectHandler.createFollower(basicPath);
 
         while (true){
             try {
                 display.printDebug("");
                 display.printDebug("New Path");
-                clics = display.waitLRClic();
+                clics = display.waitLClic();
 
                 timeStep = System.nanoTime();
-                pathAstar = astar.findPath(clics.get(0), clics.get(1));
+                pathAstar = astar.findPath(dynamicObjectHandler.getFollower().getCenter(), clics);
                 display.printDebug("Astar Time to compute path : " + getTimeDuration(timeStep) + " ms, going through " + pathAstar.size() + " nodes,");
                 display.printDebug("for a distance of " + getDistanceFromPath(pathAstar));
                 dynamicObjectHandler.createFollower(pathAstar);
                 display.drawPath(pathAstar, Color.PINK);
 
                 timeStep = System.nanoTime();
-                pathDijkstra = dijkstra.findPath(clics.get(0), clics.get(1));
+                pathDijkstra = dijkstra.findPath((Vector)dynamicObjectHandler.getFollower().getCenter().clone(), clics);
                 display.printDebug("Dijkstra Time to compute path : " + getTimeDuration(timeStep) + " ms, going through " + pathDijkstra.size() + " nodes,");
                 display.printDebug("for a distance of " + getDistanceFromPath(pathDijkstra));
                 display.drawPath(pathDijkstra, Color.GREEN);

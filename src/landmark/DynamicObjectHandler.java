@@ -78,4 +78,12 @@ public class DynamicObjectHandler extends Thread {
             }
         }
     }
+
+    /** Getters & Setters */
+    public Follower getFollower() {
+        return follower;
+    }
+    public void setFollower(Follower follower) {
+        this.follower = follower;
+    }
 }

@@ -30,8 +30,8 @@ public class LandmarkPanel extends JPanel {
     private Font messageStyle = new Font("Default", Font.BOLD, 12);
 
     /** Couleurs */
-    private Color staticObstacleColor = new Color(160, 60, 40, 160);
-    private Color movingObstacleColor = new Color(180, 180, 60, 160);
+    private Color staticObstacleColor = new Color(140, 40, 40, 160);
+    private Color movingObstacleColor = new Color(180, 140, 60, 160);
     private Color nodeColor = new Color(40, 60, 160, 180);
     private Color ridgeColor = new Color(200, 125, 50, 8);
     private Color greenPathColor = new Color(60, 160, 60, 200);
@@ -39,7 +39,7 @@ public class LandmarkPanel extends JPanel {
     private Color errorColor = new Color(250, 80, 80);
     private Color printColor = new Color(180, 200, 220);
     private Color backgroundColor = new Color(10, 10, 20);
-    private Color followerColor = new Color(160, 180,200,200);
+    private Color followerColor = new Color(180, 190,200,200);
 
     /** Constructeur */
     public LandmarkPanel(Landmark landmark, Graph graph){

@@ -12,7 +12,7 @@ public enum TestMode {
     public static int standartDeviation = 10;
     public static int averageRayMovingObstacle = 50;
     public static int standartDeviationMovingObstacle = 10;
-    public static double bernouilliMovingPopObstacle = 4*Math.pow(10, -4);
+    public static double bernouilliMovingPopObstacle = Math.pow(10, -2);
     public static double initialSpeed = 1;
 
     /** Constructors */

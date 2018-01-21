@@ -52,13 +52,25 @@ public class Window extends JFrame {
     public ArrayList<Vector> waitLRClic() throws InterruptedException{
         ArrayList<Vector> clics = new ArrayList<>();
         while(mouse.getLeftClickPosition() == null || mouse.getRightClickPosition() == null){
-            Thread.sleep(1);
+            Thread.sleep(10);
         }
         clics.add(mouse.getLeftClickPosition());
         clics.add(mouse.getRightClickPosition());
         panel.setClics(clics);
         mouse.resetClicks();
         return clics;
+    }
+
+    /** Attend seulement le clic gauche */
+    public Vector waitLClic() throws InterruptedException{
+        ArrayList<Vector> clics = new ArrayList<>();
+        while(mouse.getLeftClickPosition() == null){
+            Thread.sleep(10);
+        }
+        clics.add(mouse.getLeftClickPosition());
+        panel.setClics(clics);
+        mouse.resetClicks();
+        return clics.get(0);
     }
 
     /** Attend que l'on clic middle */

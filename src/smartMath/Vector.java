@@ -47,8 +47,8 @@ public class Vector {
         }
         this.ray=ray;
         this.theta=MathLib.modulo(theta, 2*Math.PI);
-        this.x = (int)(ray*Math.cos(theta));
-        this.y = (int)(ray*Math.sin(theta));
+        this.x = (int)Math.round(ray*Math.cos(theta));
+        this.y = (int)Math.round(ray*Math.sin(theta));
     }
 
     /** Retourne la distance au carré du vecteur en INTEGER */
@@ -211,12 +211,12 @@ public class Vector {
     }
     public void setRay(double ray) {
         this.ray = ray;
-        this.x = (int) (ray*Math.cos(this.theta));
-        this.y = (int) (ray*Math.sin(this.theta));
+        this.x = (int) Math.round(ray*Math.cos(this.theta));
+        this.y = (int) Math.round(ray*Math.sin(this.theta));
     }
     public void setTheta(double theta) {
         this.theta = theta;
-        this.x = (int) (ray*Math.cos(this.theta));
-        this.y = (int) (ray*Math.sin(this.theta));
+        this.x = (int) Math.round(ray*Math.cos(this.theta));
+        this.y = (int) Math.round(ray*Math.sin(this.theta));
     }
 }
